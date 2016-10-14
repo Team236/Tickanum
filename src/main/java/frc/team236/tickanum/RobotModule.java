@@ -20,6 +20,5 @@ public class RobotModule extends IterativeModule {
 	@Override
 	public void robotInit() {
 		logger = new Logger("Tickanum", Logger.ATTR_DEFAULT);
-		//TODO: Module Init
 	}
 }
