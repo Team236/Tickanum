@@ -54,6 +54,10 @@ public class Tickanum extends Subsystem {
 
 	public void set(Vector v) {
 		// Set the speeds using the vector
+		setLeftFront(v);
+		setLeftBack(v);
+		setRightFront(v);
+		setRightBack(v);
 	}
 
 	public double getAngle() {
@@ -65,5 +69,41 @@ public class Tickanum extends Subsystem {
 		leftBack.stopMotor();
 		rightFront.stopMotor();
 		rightBack.stopMotor();
+	}
+
+	private void setLeftFront(Vector v) {
+		/*
+		 * X:+ Y:+ Z:+
+		 */
+		double speed = v.x + v.y + v.z;
+		speed /= 3;
+		leftFront.set(speed);
+	}
+
+	private void setLeftBack(Vector v) {
+		/*
+		 * X:- Y:+ Z:+
+		 */
+		double speed = -v.x + v.y + v.z;
+		speed /= 3;
+		leftBack.set(speed);
+	}
+
+	private void setRightFront(Vector v) {
+		/*
+		 * X:- Y:+ Z:-
+		 */
+		double speed = -v.x + v.y - v.z;
+		speed /= 3;
+		rightFront.set(speed);
+	}
+
+	private void setRightBack(Vector v) {
+		/*
+		 * X:+ Y:+ Z:-
+		 */
+		double speed = v.x + v.y - v.z;
+		speed /= 3;
+		rightBack.set(speed);
 	}
 }
