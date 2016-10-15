@@ -1,11 +1,11 @@
 package frc.team236.tickanum;
 
-import edu.wpi.first.wpilibj.Joystick;
 import frc.team236.tickanum.lib.ControllerType;
+import frc.team236.tickanum.lib.Extreme3DPro;
 
 public class Settings {
 
-	public Joystick leftStick, rightStick;
+	public Extreme3DPro stick;
 	public ControllerType controllerType;
 	public int leftFrontPort, leftBackPort, rightFrontPort, rightBackPort;
 

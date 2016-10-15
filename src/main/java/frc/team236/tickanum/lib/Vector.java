@@ -21,10 +21,11 @@ public class Vector {
 	 * Rotate the vector by the given angle
 	 * 
 	 * @param degrees
-	 *            the angle to rotate the vector in degrees
+	 *            the angle to rotate the vector in degrees (clockwise)
 	 */
 	public void rotate(double degrees) {
-		double rad = Math.toRadians(degrees);
+		// We use a negative here so that positive = clockwise
+		double rad = Math.toRadians(-degrees);
 		double _x = this.x * Math.cos(rad) - this.y * Math.sin(rad);
 		double _y = this.x * Math.sin(rad) + this.y * Math.cos(rad);
 

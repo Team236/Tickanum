@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class Extreme3DPro extends Joystick implements VectorSource {
 
+	Joystick stick;
+
 	public Extreme3DPro(int port) {
 		super(port);
 	}

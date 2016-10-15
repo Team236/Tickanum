@@ -1,15 +1,20 @@
 package frc.team236.tickanum;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team236.tickanum.commands.DriveWithJoystick;
 import frc.team236.tickanum.lib.ControllerType;
+import frc.team236.tickanum.lib.Extreme3DPro;
 import frc.team236.tickanum.lib.Vector;
 import jaci.openrio.toast.lib.registry.Registrar;
 
 public class Tickanum extends Subsystem {
 
 	public SpeedController leftFront, leftBack, rightFront, rightBack;
+	public AHRS gyro;
+	public Extreme3DPro stick;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -21,6 +26,8 @@ public class Tickanum extends Subsystem {
 		leftBack = makeMotor(settings.leftBackPort, settings.controllerType);
 		rightFront = makeMotor(settings.rightFrontPort, settings.controllerType);
 		rightBack = makeMotor(settings.rightBackPort, settings.controllerType);
+
+		stick = settings.stick;
 	}
 
 	private static SpeedController makeMotor(int port, ControllerType type) {
@@ -47,5 +54,16 @@ public class Tickanum extends Subsystem {
 
 	public void set(Vector v) {
 		// Set the speeds using the vector
+	}
+
+	public double getAngle() {
+		return gyro.getAngle();
+	}
+
+	public void stop() {
+		leftFront.stopMotor();
+		leftBack.stopMotor();
+		rightFront.stopMotor();
+		rightBack.stopMotor();
 	}
 }
