@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team236.tickanum.commands.DriveWithJoystick;
 import frc.team236.tickanum.lib.ControllerType;
 import frc.team236.tickanum.lib.Extreme3DPro;
-import frc.team236.tickanum.lib.Vector;
 import jaci.openrio.toast.lib.registry.Registrar;
 
 public class Tickanum extends Subsystem {
@@ -52,16 +51,27 @@ public class Tickanum extends Subsystem {
 		return m;
 	}
 
-	public void set(Vector v) {
+	/**
+	 * Set the motion of the robot.
+	 * 
+	 * @param angle
+	 *            The angle (from straight ahead) toward which the bot should
+	 *            move (in radians)
+	 * @param mag
+	 *            The speed at which the robot should move
+	 * @param rot
+	 *            The rate of rotation
+	 */
+	public void set(double angle, double mag, double rot) {
 		// Set the speeds using the vector
-		setLeftFront(v);
-		setLeftBack(v);
-		setRightFront(v);
-		setRightBack(v);
+		setLeftFront(angle, mag, rot);
+		setLeftBack(angle, mag, rot);
+		setRightFront(angle, mag, rot);
+		setRightBack(angle, mag, rot);
 	}
 
 	public double getAngle() {
-		return gyro.getAngle();
+		return 0;//gyro.getAngle();
 	}
 
 	public void stop() {
@@ -71,39 +81,23 @@ public class Tickanum extends Subsystem {
 		rightBack.stopMotor();
 	}
 
-	private void setLeftFront(Vector v) {
-		/*
-		 * X:+ Y:+ Z:+
-		 */
-		double speed = v.x + v.y + v.z;
-		speed /= 3;
+	private void setLeftFront(double angle, double mag, double rot) {
+		double speed = mag * Math.sin(angle + Math.PI / 4) + rot;
 		leftFront.set(speed);
 	}
 
-	private void setLeftBack(Vector v) {
-		/*
-		 * X:- Y:+ Z:+
-		 */
-		double speed = -v.x + v.y + v.z;
-		speed /= 3;
+	private void setLeftBack(double angle, double mag, double rot) {
+		double speed = mag * Math.cos(angle + Math.PI / 4) + rot;
 		leftBack.set(speed);
 	}
 
-	private void setRightFront(Vector v) {
-		/*
-		 * X:- Y:+ Z:-
-		 */
-		double speed = -v.x + v.y - v.z;
-		speed /= 3;
+	private void setRightFront(double angle, double mag, double rot) {
+		double speed = mag * Math.cos(angle + Math.PI / 4) - rot;
 		rightFront.set(speed);
 	}
 
-	private void setRightBack(Vector v) {
-		/*
-		 * X:+ Y:+ Z:-
-		 */
-		double speed = v.x + v.y - v.z;
-		speed /= 3;
+	private void setRightBack(double angle, double mag, double rot) {
+		double speed = mag * Math.sin(angle + Math.PI / 4) - rot;
 		rightBack.set(speed);
 	}
 }
